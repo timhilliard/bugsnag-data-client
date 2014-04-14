@@ -1,27 +1,14 @@
-require 'dynect_rest'
+require 'bugsnag_data'
 
-DYNECT_CUST = ENV['DYNECT_CUST'] || 'customer'
-DYNECT_USER = ENV['DYNECT_USER'] || 'user'
-DYNECT_PASS = ENV['DYNECT_PASS'] || 'secretword'
-DYNECT_ZONE = ENV['DYNECT_ZONE'] || 'example.com'
+bugsnag = BugsnagData.new("BUGSNAG_API_KEY")
 
-@dyn = DynectRest.new(DYNECT_CUST, DYNECT_USER, DYNECT_PASS, DYNECT_ZONE, true)
-
-# Create or Update an A Record for the given host
-host = "example.#{DYNECT_ZONE}"
-@record = @dyn.a.fqdn(host)
-if @record.get(host)
- @dyn.a.fqdn(host).ttl(300).address("10.4.5.254").save(true)
- # the true flag will use a put instead of a post.  This is required if you want to be able to update, as welll as create
-else
-  @dyn.a.fqdn(host).ttl(300).address("10.4.5.254").save(false)  
-end
-
-# Create a new cname record
-@dyn.cname.fqdn("example-cname.#{DYNECT_ZONE}").cname("ec2-10-10-10-10.amazonaws.com").save
-
-@dyn.publish
-@dyn.logout
-
-
-
+bugsnag.account
+bugsnag.users
+bugsnag.project_users(PROJECT_ID)
+bugsnag.user(USER_ID)
+bugsnag.projects
+bugsnag.user_projects(USER_ID)
+bugsnag.project(PROJECT_ID)
+bugsnag.project_errors(PROJECT_ID)
+bugsnag.project_events(PROJECT_ID)
+bugsnag.error_events(ERROR_ID)

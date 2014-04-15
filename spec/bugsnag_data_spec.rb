@@ -20,7 +20,7 @@ describe BugsnagData do
 
       bugsnag = BugsnagData.new("testkey")
       account = bugsnag.account
-      expect(account["id"]).to eq(1)
+      expect(account["id"]).to eq("1")
       expect(account["name"]).to eq("Acquia Hosting Eng")
     end
   end

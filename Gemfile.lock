@@ -76,6 +76,6 @@ DEPENDENCIES
   httparty
   jeweler
   rake
-  rspec (~> 2.0.0)
+  rspec
   webmock
   yard

@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Tim Hilliard"]
-  s.date = "2014-04-14"
+  s.date = "2014-04-15"
   s.description = "Use the Bugsnag Data REST API"
   s.email = "timhilliard@gmail.com"
   s.extra_rdoc_files = [
@@ -21,14 +21,17 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     ".rspec",
+    ".travis.yml",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE",
     "README.rdoc",
     "Rakefile",
     "VERSION",
-    "dynect_rest.gemspec",
+    "bugsnag_data.gemspec",
     "example.rb",
+    "lib/bugsnag_data.rb",
+    "spec/bugsnag_data_spec.rb",
     "spec/spec_helper.rb"
   ]
   s.homepage = "http://github.com/timhilliard/bugsnag-data-client"
@@ -41,7 +44,7 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<httparty>, [">= 0"])
       s.add_development_dependency(%q<rake>, [">= 0"])
-      s.add_development_dependency(%q<rspec>, ["~> 2.0.0"])
+      s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<webmock>, [">= 0"])
       s.add_development_dependency(%q<yard>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
@@ -51,7 +54,7 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<httparty>, [">= 0"])
       s.add_dependency(%q<rake>, [">= 0"])
-      s.add_dependency(%q<rspec>, ["~> 2.0.0"])
+      s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<webmock>, [">= 0"])
       s.add_dependency(%q<yard>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
@@ -62,7 +65,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<httparty>, [">= 0"])
     s.add_dependency(%q<rake>, [">= 0"])
-    s.add_dependency(%q<rspec>, ["~> 2.0.0"])
+    s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<webmock>, [">= 0"])
     s.add_dependency(%q<yard>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])

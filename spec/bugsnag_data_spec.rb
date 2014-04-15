@@ -14,7 +14,9 @@ describe BugsnagData do
         :body => '{"id":"1","name":"Acquia Hosting Eng"}',
         :status => 200
       }
-      stub_request(:get, "https://api.bugsnag.com/account").with(:headers => {'Authorization'=>'token testkey'}).to_return(response_content)
+      stub_request(:get, "https://api.bugsnag.com/account").
+        with(:headers => {'Authorization'=>'token testkey'}).
+        to_return(response_content)
 
       bugsnag = BugsnagData.new("testkey")
       account = bugsnag.account

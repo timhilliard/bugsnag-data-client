@@ -2,6 +2,7 @@
 
 Interact with the Bugsnag Data REST API.
 
+[![Gem Version](https://badge.fury.io/rb/bugsnag_data.svg)](http://badge.fury.io/rb/bugsnag_data)
 [![Build Status](https://travis-ci.org/timhilliard/bugsnag-data-client.svg?branch=master)](https://travis-ci.org/timhilliard/bugsnag-data-client)
 
 ## API calls

@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
     'lib/bugsnag_data.rb'
   ]
 
+  s.required_ruby_version = '>= 1.9.3'
+
   s.add_runtime_dependency('httparty', ['~> 0.13.3'])
 
   s.add_development_dependency('rake', ['~> 10.4.2'])

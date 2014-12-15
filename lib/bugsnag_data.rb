@@ -5,9 +5,9 @@
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,13 +17,19 @@
 
 require 'httparty'
 
+# Top level class for dealing with Bugsnag specific exceptions
 class BugsnagDataExceptions
+  # Exception class for dealing with failed requests
   class RequestFailed < RuntimeError; end
+  # Exception class for dealing with requests that return not found by the API
   class NotFound < RequestFailed; end
+  # Exception class for dealing with authorization failed requests
   class AuthorizationFailed < RequestFailed; end
+  # Exception class for dealing with poorly formatted requests
   class BadRequest < RequestFailed; end
 end
 
+# Class for retrieving data from the Bugsnag API.
 class BugsnagData
   include HTTParty
 
@@ -31,12 +37,13 @@ class BugsnagData
 
   base_uri 'https://api.bugsnag.com'
 
-  # Creates a new base object for interacting with Dynect's REST API
+  # Creates a new base object for interacting with Bugnsags's REST API
   #
-  # @param [String] Your Bugsnag API key
+  # @param [String] api_key
+  #   Your Bugsnag API key
   #
   def initialize(api_key)
-    @options = { :headers => { "Authorization" => "token #{api_key}"} }
+    @options = { headers: { 'Authorization' => "token #{api_key}" } }
   end
 
   ##
@@ -46,23 +53,26 @@ class BugsnagData
   #
   # See: https://bugsnag.com/docs/api/accounts#get-account-details
   #
-  # @param [Hash] A hash of parameters to pass to the request.
+  # @param [Hash] params
+  #   A hash of parameters to pass to the request.
   #
   def account(params = {})
-    make_get_request("/account", params)
+    make_get_request('/account', params)
   end
 
   ##
   # List your Account's Users
   ##
-  # Get a list of all Users with access to the currently authenticated Bugsnag Account.
+  # Get a list of all Users with access to the currently authenticated Bugsnag
+  # Account.
   #
   # See: https://bugsnag.com/docs/api/users#list-your-account-s-users
   #
-  # @param [Hash] A hash of parameters to pass to the request.
+  # @param [Hash] params
+  #   A hash of parameters to pass to the request.
   #
   def users(params = {})
-    make_get_request("/account/users", params)
+    make_get_request('/account/users', params)
   end
 
   ##
@@ -72,11 +82,13 @@ class BugsnagData
   #
   # See: https://bugsnag.com/docs/api/users#list-a-project-s-users
   #
-  # @param [String] A project ID
-  # @param [Hash] A hash of parameters to pass to the request.
+  # @param [String] project_id
+  #   A project ID
+  # @param [Hash] params
+  #   A hash of parameters to pass to the request.
   #
   def project_users(project_id, params = {})
-    make_get_request("/projects/#{project_id.to_s}/users", params)
+    make_get_request("/projects/#{project_id}/users", params)
   end
 
   ##
@@ -86,11 +98,13 @@ class BugsnagData
   #
   # See: https://bugsnag.com/docs/api/users#get-user-details
   #
-  # @param [String] A user ID
-  # @param [Hash] A hash of parameters to pass to the request.
+  # @param [String] user_id
+  #   A user ID
+  # @param [Hash] params
+  #   A hash of parameters to pass to the request.
   #
   def user(user_id, params = {})
-    make_get_request("/users/#{user_id.to_s}", params)
+    make_get_request("/users/#{user_id}", params)
   end
 
   ##
@@ -100,10 +114,11 @@ class BugsnagData
   #
   # See: https://bugsnag.com/docs/api/projects#list-your-account-s-projects
   #
-  # @param [Hash] A hash of parameters to pass to the request.
+  # @param [Hash] params
+  #   A hash of parameters to pass to the request.
   #
   def projects(params = {})
-    make_get_request("/account/projects", params)
+    make_get_request('/account/projects', params)
   end
 
   ##
@@ -113,8 +128,10 @@ class BugsnagData
   #
   # See: https://bugsnag.com/docs/api/projects#list-a-user-s-projects
   #
-  # @param [String] A user ID
-  # @param [Hash] A hash of parameters to pass to the request.
+  # @param [String] user_id
+  #   A user ID
+  # @param [Hash] params
+  #   A hash of parameters to pass to the request.
   #
   def users_projects(user_id, params = {})
     make_get_request("/user/#{user_id}/projects", params)
@@ -127,8 +144,10 @@ class BugsnagData
   #
   # See: https://bugsnag.com/docs/api/projects#get-project-details
   #
-  # @param [String] A project ID
-  # @param [Hash] A hash of parameters to pass to the request.
+  # @param [String] project_id
+  #   A project ID
+  # @param [Hash] params
+  #   A hash of parameters to pass to the request.
   #
   def project(project_id, params = {})
     make_get_request("/projects/#{project_id}", params)
@@ -141,8 +160,10 @@ class BugsnagData
   #
   # See: https://bugsnag.com/docs/api/errors#list-a-project-s-errors
   #
-  # @param [String] A project ID
-  # @param [Hash] A hash of parameters to pass to the request.
+  # @param [String] project_id
+  #   A project ID
+  # @param [Hash] params
+  #   A hash of parameters to pass to the request.
   #
   def project_errors(project_id, params = {})
     make_get_request("/projects/#{project_id}/errors", params)
@@ -155,8 +176,10 @@ class BugsnagData
   #
   # See: https://bugsnag.com/docs/api/events#list-a-project-s-events
   #
-  # @param [String] A project ID
-  # @param [Hash] A hash of parameters to pass to the request.
+  # @param [String] project_id
+  #   A project ID
+  # @param [Hash] params
+  #   A hash of parameters to pass to the request.
   #
   def project_events(project_id, params = {})
     make_get_request("/projects/#{project_id}/events", params)
@@ -165,12 +188,15 @@ class BugsnagData
   ##
   # List an Error's Events
   ##
-  # Get a list of all events (individual crashes) grouped under the given Bugsnag Error.
+  # Get a list of all events (individual crashes) grouped under the given
+  # Bugsnag Error.
   #
   # See: https://bugsnag.com/docs/api/events#list-an-error-s-events
   #
-  # @param [String] An error ID
-  # @param [Hash] A hash of parameters to pass to the request.
+  # @param [String] error_id
+  #   An error ID
+  # @param [Hash] params
+  #   A hash of parameters to pass to the request.
   #
   def error_events(error_id, params = {})
     make_get_request("/errors/#{error_id}/events", params)
@@ -201,15 +227,14 @@ class BugsnagData
   end
 
   def parse_response(response)
-    case response.headers["status"]
-    when "404 Not Found"
-      raise BugsnagDataExceptions::NotFound, "Not Found"
-    when "401 Unauthorized"
-      raise BugsnagDataExceptions::AuthorizationFailed, "Authorization Failed"
-    when "400 Bad Request"
-      raise BugsnagDataExceptions::BadRequest, "Bad Request"
+    case response.headers['status']
+    when '404 Not Found'
+      fail BugsnagDataExceptions::NotFound, 'Not Found'
+    when '401 Unauthorized'
+      fail BugsnagDataExceptions::AuthorizationFailed, 'Authorization Failed'
+    when '400 Bad Request'
+      fail BugsnagDataExceptions::BadRequest, 'Bad Request'
     end
     response.parsed_response
   end
-
 end

@@ -1,0 +1,9 @@
+--readme README.md
+--title 'Bugsnag Data Client Documentation'
+--charset utf-8
+--markup markdown
+--markup-provider redcarpet
+'lib/bugsnag_data.rb'
+-
+example.rb
+LICENSE
